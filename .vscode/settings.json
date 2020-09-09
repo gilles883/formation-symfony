@@ -1,0 +1,6 @@
+{
+    "twig-language-2.bracePadding": true,
+    "twig-language-2.braces": true,
+    "twig-language-2.braceLine": true,
+    "sqltools.useNodeRuntime": null
+}
