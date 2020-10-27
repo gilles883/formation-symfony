@@ -61,7 +61,7 @@ class AdController extends AbstractController
             );
             
             return $this->redirectToRoute('ads_show', 
-                        [ 'slug' => $ad->getSlug() ]
+                [ 'slug' => $ad->getSlug() ]
             );
         }
                     

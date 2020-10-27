@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Ad;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use Faker\Factory;
 use App\Entity\Image;
 use App\Entity\Role;
@@ -74,10 +75,10 @@ class AppFixtures extends Fixture
         {
             $ad = new Ad;
 
-            $title      = $faker->sentence();
-            $coverImage = $faker->imageUrl(1000,350);
+            $title        = $faker->sentence();
+            $coverImage   = 'https://picsum.photos/1000/350?image=' . $faker->numberBetween($min=0, $max=1000);   //$faker->imageUrl(1000,350);
             $introduction = $faker->paragraph(2);
-            $content    = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
+            $content      = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
 
             $user = $users[mt_rand(0, count($users) - 1 )];
 
@@ -93,7 +94,7 @@ class AppFixtures extends Fixture
             {
                 $image = new Image();
 
-                $image->setUrl($faker->imageUrl())
+                $image->setUrl('https://picsum.photos/640/480?image=' . $faker->numberBetween($min = 0, $max = 1000))       //($faker->imageUrl())
                       ->setCaption($faker->sentence())
                       ->setAd($ad);
 
@@ -124,6 +125,18 @@ class AppFixtures extends Fixture
                         ->setComment($comment);
 
                 $manager->persist($booking);
+
+                // Gestion des commentaires
+                if(mt_rand(0, 1))
+                {
+                    $comment = new Comment();
+                    $comment->setContent($faker->paragraph())
+                            ->setRating(mt_rand(1, 5))
+                            ->setAuthor($booker)
+                            ->setAd($ad);
+
+                    $manager->persist($comment);
+                }
             }
 
             $manager->persist($ad);
