@@ -72,10 +72,11 @@ class AdminBookingController extends AbstractController
 
         $this->addFlash(
             'success',
-            "La réservation à bien été supprimée"
+            "La réservation a bien été supprimée"
         );
 
         return $this->redirectToRoute("admin_bookings_index");
     }
 
 }
+ 

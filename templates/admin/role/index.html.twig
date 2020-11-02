@@ -1,0 +1,37 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des administrateurs!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-5">Gestion des administrateurs</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    {% for role in user.roles %}  {# On boucle sur les rôles #}
+                        {% if role == "ROLE_ADMIN" %}
+                            <td><img src="{{user.picture}}" alt="" class="avatar avatar-micro">{{user.fullName}}</td>
+                            <td>{{user.email}}</td>
+                            <td><a href="{{ path('admin_role_delete', {'id': user.id}) }}" class="btn btn-danger">
+                                <i class="fas fa-trash"></i></a>
+                            </td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>   
+    </table>
+    <a href="{{ path('admin_role_add') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i>
+        Ajouter un administrateur
+    </a>
+</div>
+{% endblock %}
