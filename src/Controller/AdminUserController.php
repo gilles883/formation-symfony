@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,12 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/admin/users", name="admin_users_index")
+     * @Route("/admin/users/{page<\d+>?1}", name="admin_users_index")
      */
-    public function index(UserRepository $repo)
+    public function index(UserRepository$repo, $page, PaginationService $pagination)
     {
+        $pagination->setEntityClass(User::class)
+                   ->setPage($page);
+
         return $this->render('admin/user/index.html.twig',
-            [  'users' => $repo->findAll() ]
+            [  'pagination' => $pagination ]
         );
     }
 
@@ -70,7 +74,13 @@ class AdminUserController extends AbstractController
      */
     public function delete(User $user, EntityManagerInterface $manager)
     {
-        if (count($user->getBookings()) > 0) {
+        if($this->getUser() == $user)
+        {
+            $this->addFlash(
+                'warning',
+                "Vous ne pouvez pas supprimer le compte avec lequel vous êtes identifié "
+            );
+        } elseif (count($user->getBookings()) > 0) {
             $this->addFlash(
                 'warning',
                 "Vous ne pouvez pas supprimer l'utilisateur <strong>{$user->getFullName()}</strong> car il possède des réservations!"

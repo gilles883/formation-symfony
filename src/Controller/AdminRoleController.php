@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Role\RoleHierarchy;
 class AdminRoleController extends AbstractController
 {
     /**
-    * @Route("/admin/role", name="admin_role_index")
+    * @Route("/admin/role", name="admin_roles_index")
     */
     public function index(UserRepository $repo)
     {
@@ -55,7 +55,7 @@ class AdminRoleController extends AbstractController
                 "{$user->getFullName()} a bien été rajouté comme administrateur"
             );
 
-            return $this->redirectToRoute("admin_role_index");
+            return $this->redirectToRoute("admin_roles_index");
         }
 
         return $this->render('admin/role/add.html.twig',
@@ -96,6 +96,6 @@ class AdminRoleController extends AbstractController
 
         }
 
-        return $this->redirectToRoute("admin_role_index");
+        return $this->redirectToRoute("admin_roles_index");
     }
 }
