@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AdType;
-use App\Repository\AdRepository;
 use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +15,7 @@ class AdminAdController extends AbstractController
     /**
      * @Route("/admin/ads/{page<\d+>?1}", name="admin_ads_index")
      */
-    public function index(AdRepository $repo, $page, PaginationService $pagination)
+    public function index($page, PaginationService $pagination)
     {
         $pagination->setEntityClass(Ad::class)
                    ->setPage($page);

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\AdminUserType;
-use App\Repository\UserRepository;
 use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +15,7 @@ class AdminUserController extends AbstractController
     /**
      * @Route("/admin/users/{page<\d+>?1}", name="admin_users_index")
      */
-    public function index(UserRepository$repo, $page, PaginationService $pagination)
+    public function index($page, PaginationService $pagination)
     {
         $pagination->setEntityClass(User::class)
                    ->setPage($page);

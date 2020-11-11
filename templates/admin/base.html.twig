@@ -8,10 +8,12 @@
 		</title>
 
 		<meta name="viewport" content="width=device-width, user-scalable=no">
-
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
+ 
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-		<link rel="stylesheet" href="/css/app.css"> {% block stylesheets %}{% endblock %}
+
+		{{ encore_entry_link_tags('css/app') }}
+		
+		{% block stylesheets %}{% endblock %}
 		</head>
 
 		<body>
@@ -21,9 +23,7 @@
 
 			{% include 'admin/partials/footer.html.twig' %}
 
-			<script src="/js/jquery.min.js"></script>
-			<script src="/js/popper.min.js"></script>
-			<script src="/js/bootstrap.min.js"></script>
+			{{ encore_entry_script_tags('js/app') }}
 			{% block javascripts %}{% endblock %}
 		</body>
 	</html>
