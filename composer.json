@@ -74,6 +74,12 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "post-install-cmd": [
+            
+        ],
+        "post-update-cmd": [
+            
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"
